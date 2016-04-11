@@ -10,7 +10,7 @@ This is the code for the paper [Winning Daily Fantasy Sports Hockey Contest Usin
 - [DataFrames.jl](https://github.com/JuliaStats/DataFrames.jl)
 - [GLPKMathProgInterface.jl](https://github.com/JuliaOpt/GLPKMathProgInterface.jl)
 
-To start off, you should download Julia and GLPK from the corresponding sites above. Then, open Julia and run the following commands 
+To start off, you should download Julia from the corresponding site above. Then, open Julia and run the following commands 
 ```julia
 julia> Pkg.add("JuMP")
 julia> Pkg.add("DataFrames")

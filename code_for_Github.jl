@@ -8,9 +8,6 @@ hope that you will use your expertise to build better formulations.
 # To install DataFrames, simply run Pkg.add("DataFrames")
 using DataFrames
 
-# To install MathProgBase, simply run Pkg.add("MathProgBase")
-using MathProgBase
-
 #=
 GLPK is an open-source solver, and additionally Cbc is an open-source solver. This code uses GLPK
 because we found that it was slightly faster than Cbc in practice. For those that want to build
@@ -36,14 +33,6 @@ path_skaters = "example_skaters.csv"
 
 # path_goalies is a string that gives the path to the csv file with the goalies information (see example file for suggested format)
 path_goalies = "example_goalies.csv"
-
-#=
-formulation is the type of formulation that you would like to use. Feel free to customize the formulations. In our paper we considered
-the Type 4 formulation in great detail, but we have included the code for all of the formulations dicussed in the paper here. For instance,
-if you would like to create lineups without stacking, change one_lineup_Type_4 below to one_lineup_no_stacking
-=#
-formulation = one_lineup_Type_4
-
 
 # path_to_output is a string that gives the path to the csv file that will give the outputted results
 path_to_output= "output.csv"
@@ -611,6 +600,12 @@ end
 
 
 
+#=
+formulation is the type of formulation that you would like to use. Feel free to customize the formulations. In our paper we considered
+the Type 4 formulation in great detail, but we have included the code for all of the formulations dicussed in the paper here. For instance,
+if you would like to create lineups without stacking, change one_lineup_Type_4 below to one_lineup_no_stacking
+=#
+formulation = one_lineup_Type_4
 
 
 

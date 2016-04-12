@@ -34,20 +34,23 @@ Alternatively, you can download the zip file from above.
 
 
 ## Running the Code
-Open the file ```code_for_Github.jl```. By default the code will create 100 lineups with a maximum overlap of 7 players between each lineup. To change this, see lines 29 and 32 in the file. For instance, if you want to create 10 lineups with a maximum overlap of 4 players, you change lines 29 and 32 to the following 
+Open the file ```code_for_Github.jl```. By default the code will create 100 lineups with a maximum overlap of 7 players between each lineup. To change this, see lines 26 and 29 in the file. For instance, if you want to create 10 lineups with a maximum overlap of 4 players, you change lines 26 and 29 to the following 
 
 ```
 num_lineups = 10
 num_overlap = 4
 ```
 
-By default, the code creates the lineup using the Type 4 formulation considered in the paper. To change this, see line 45 in the file. For instance, if you want to create lineups using the Type 5 formulation, you change line 45 to the folowing 
+By default, the code creates the lineup using the Type 4 formulation considered in the paper. To change this, see line 608 in the file. For instance, if you want to create lineups using the Type 5 formulation, you change line 608 to the folowing 
 
 ```
 formulation = one_lineup_Type_5
 ```
 
+<<<<<<< HEAD
 Lastly, you can change the ```path_skaters```, ```path_goalies```, and ```path_to_output``` variables defined on line 35, 45, and 49 respectively. For instance, if you place ```goalies.csv``` and ```skaters.csv``` in your home directory, and would like the lineps to be outputted to a file ```output.csv``` in your home directory, you would change the code to the following 
+=======
+Lastly, you can change the ```path_skaters```, ```path_goalies```, and ```path_to_output``` variables defined on line 32, 35, and 38 respectively. For instance, if you place ```goalies.csv``` and ```skaters.csv``` in your home directory, and would like the lineps to be outputted to a file ```output.csv``` in your home directory, you would change the code to the following 
 
 ```
 path_skaters = "/users/home/skaters.csv"
@@ -57,6 +60,6 @@ path_to_output = "/users/home/output.csv"
 
 where ```home``` above is changed to correspond with your computers home directory. 
 
-Now that you have done this, you should be done. You should not need to change anything after line 50 in the file ```code_for_Github.jl```. Now you can build your own lineups!
+Now that you have done this, you should be done. You should not need to change anything else in the file ```code_for_Github.jl```. Now you can build your own lineups!
 
 We have made an attempt to describe the code in great detail, with the hope that you will use your expertise to build better formulations. Good luck!

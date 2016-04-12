@@ -32,10 +32,10 @@ num_lineups = 100
 num_overlap = 7
 
 # path_skaters is a string that gives the path to the csv file with the skaters information (see example file for suggested format)
-path_skaters = "/users/path_to_skaters"
+path_skaters = "example_skaters.csv"
 
 # path_goalies is a string that gives the path to the csv file with the goalies information (see example file for suggested format)
-path_goalies = "/users/path_to_goalies"
+path_goalies = "example_goalies.csv"
 
 #=
 formulation is the type of formulation that you would like to use. Feel free to customize the formulations. In our paper we considered
@@ -46,7 +46,7 @@ formulation = one_lineup_Type_4
 
 
 # path_to_output is a string that gives the path to the csv file that will give the outputted results
-path_to_output= "/users/path_to_output"
+path_to_output= "output.csv"
 
 
 

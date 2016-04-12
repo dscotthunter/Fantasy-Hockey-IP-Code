@@ -47,11 +47,11 @@ By default, the code creates the lineup using the Type 4 formulation considered 
 formulation = one_lineup_Type_5
 ```
 
-Lastly, you **must** change the ```path_skaters```, ```path_goalies```, and ```path_to_output``` variables defined on line 35, 45, and 49 respectively. For instance, if you place ```example_goalies.csv``` and ```example_skaters.csv``` in your home directory, and would like the lineps to be outputted to a file ```output.csv``` in your home directory, you would change the code to the following 
+Lastly, you can change the ```path_skaters```, ```path_goalies```, and ```path_to_output``` variables defined on line 35, 45, and 49 respectively. For instance, if you place ```goalies.csv``` and ```skaters.csv``` in your home directory, and would like the lineps to be outputted to a file ```output.csv``` in your home directory, you would change the code to the following 
 
 ```
-path_skaters = "/users/home/example_skaters.csv"
-path_goalies = "/users/home/example_goalies.csv"
+path_skaters = "/users/home/skaters.csv"
+path_goalies = "/users/home/goalies.csv"
 path_to_output = "/users/home/output.csv"
 ```
 

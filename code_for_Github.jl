@@ -443,6 +443,7 @@ function one_lineup_Type_4(skaters, goalies, lineups, num_overlap, num_skaters, 
     # exactly 3 different teams for the 8 skaters constraint
     @defVar(m, used_team[i=1:num_teams], Bin)
     @addConstraint(m, constr[i=1:num_teams], used_team[i] <= sum{skaters_teams[t, i]*skaters_lineup[t], t=1:num_skaters})
+    @addConstraint(m, constr[i=1:num_teams], sum{skaters_teams[t, i]*skaters_lineup[t], t=1:num_skaters} <= 6*used_team[i])
     @addConstraint(m, sum{used_team[i], i=1:num_teams} == 3)
 
 
@@ -543,6 +544,7 @@ function one_lineup_Type_5(skaters, goalies, lineups, num_overlap, num_skaters, 
     # exactly 3 different teams for the 8 skaters constraint
     @defVar(m, used_team[i=1:num_teams], Bin)
     @addConstraint(m, constr[i=1:num_teams], used_team[i] <= sum{skaters_teams[t, i]*skaters_lineup[t], t=1:num_skaters})
+    @addConstraint(m, constr[i=1:num_teams], sum{skaters_teams[t, i]*skaters_lineup[t], t=1:num_skaters} <= 6*used_team[i])
     @addConstraint(m, sum{used_team[i], i=1:num_teams} == 3)
 
 

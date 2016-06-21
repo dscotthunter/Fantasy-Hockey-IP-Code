@@ -23,16 +23,16 @@ using JuMP
 Variables for solving the problem (change these)
 =#
 # num_lineups is the total number of lineups
-num_lineups = 100
+num_lineups = 50
 
 # num_overlap is the maximum overlap of players between the lineups that you create
 num_overlap = 7
 
-# path_skaters is a string that gives the path to the csv file with the skaters information (see example file for suggested format)
-path_skaters = "example_skaters.csv"
+# path_hitters is a string that gives the path to the csv file with the skaters information (see example file for suggested format)
+path_hitters = "example_hitters.csv"
 
 # path_goalies is a string that gives the path to the csv file with the goalies information (see example file for suggested format)
-path_goalies = "example_goalies.csv"
+path_pitchers = "example_pitchers.csv"
 
 # path_to_output is a string that gives the path to the csv file that will give the outputted results
 path_to_output= "output.csv"
@@ -40,48 +40,48 @@ path_to_output= "output.csv"
 
 
 # This is a function that creates one lineup using the No Stacking formulation from the paper
-function one_lineup_no_stacking(skaters, goalies, lineups, num_overlap, num_skaters, num_goalies, centers, wingers, defenders, num_teams, skaters_teams, goalie_opponents, team_lines, num_lines, P1_info)
+function one_lineup_no_stacking(hitters, pitchers, lineups, num_overlap, num_hitters, num_pitchers, catchers, firstbase, secondbase, thirdbase, shortstop, outfielder, num_teams, hitters_teams, pitcher_opponents, team_lines, num_lines, P1_info)
     m = Model(solver=GLPKSolverMIP())
 
-    # Variable for skaters in lineup.
-    @defVar(m, skaters_lineup[i=1:num_skaters], Bin)
+    # Variable for hitters in lineup.
+    @defVar(m, hitters_lineup[i=1:num_hitters], Bin)
 
-    # Variable for goalie in lineup.
-    @defVar(m, goalies_lineup[i=1:num_goalies], Bin)
+    # Variable for pitcher in lineup.
+    @defVar(m, pitcher_lineup[i=1:num_pitcher], Bin)
 
 
-    # One goalie constraint
-    @addConstraint(m, sum{goalies_lineup[i], i=1:num_goalies} == 1)
+    # One pitcher constraint
+    @addConstraint(m, sum{pitcher_lineup[i], i=1:num_pitchers} == 1)
 
-    # Eight Skaters constraint
-    @addConstraint(m, sum{skaters_lineup[i], i=1:num_skaters} == 8)
+    # Seven Hitter constraint
+    @addConstraint(m, sum{hitter_lineup[i], i=1:num_skaters} == 8)
 
-    # between 2 and 3 centers
-    @addConstraint(m, sum{centers[i]*skaters_lineup[i], i=1:num_skaters} <= 3)
-    @addConstraint(m, 2 <= sum{centers[i]*skaters_lineup[i], i=1:num_skaters})
+    # between 2 and 3 catchers
+    @addConstraint(m, sum{catchers[i]*hitters_lineup[i], i=1:num_hitters} <= 3)
+    @addConstraint(m, 2 <= sum{catchers[i]*hitters_lineup[i], i=1:num_hitters})
 
-    # between 3 and 4 wingers
-    @addConstraint(m, sum{wingers[i]*skaters_lineup[i], i=1:num_skaters} <= 4)
-    @addConstraint(m, 3<=sum{wingers[i]*skaters_lineup[i], i=1:num_skaters})
+    # between 3 and 4 shortstop
+    @addConstraint(m, sum{shortstop[i]*hitters_lineup[i], i=1:num_hitters} <= 4)
+    @addConstraint(m, 3<=sum{shortstop[i]*hitters_lineup[i], i=1:num_hitters})
 
-    # between 2 and 3 defenders
-    @addConstraint(m, 2 <= sum{defenders[i]*skaters_lineup[i], i=1:num_skaters})
-    @addConstraint(m, sum{defenders[i]*skaters_lineup[i], i=1:num_skaters} <= 3)
+    # between 2 and 3 outfield
+    @addConstraint(m, 2 <= sum{outfield[i]*hitters_lineup[i], i=1:num_hitters})
+    @addConstraint(m, sum{outfield[i]*hitters_lineup[i], i=1:num_hitters} <= 3)
 
     # Financial Constraint
-    @addConstraint(m, sum{skaters[i,:Salary]*skaters_lineup[i], i=1:num_skaters} + sum{goalies[i,:Salary]*goalies_lineup[i], i=1:num_goalies} <= 50000)
+    @addConstraint(m, sum{hitters[i,:Salary]*hitters_lineup[i], i=1:num_hitters} + sum{pitchers[i,:Salary]*pitchers_lineup[i], i=1:num_pitchers} <= 50000)
 
     # at least 3 different teams for the 8 skaters constraints
     @defVar(m, used_team[i=1:num_teams], Bin)
-    @addConstraint(m, constr[i=1:num_teams], used_team[i] <= sum{skaters_teams[t, i]*skaters_lineup[t], t=1:num_skaters})
+    @addConstraint(m, constr[i=1:num_teams], used_team[i] <= sum{hitters_teams[t, i]*hitters_lineup[t], t=1:num_hitters})
     @addConstraint(m, sum{used_team[i], i=1:num_teams} >= 3)
 
     # Overlap Constraint
-    @addConstraint(m, constr[i=1:size(lineups)[2]], sum{lineups[j,i]*skaters_lineup[j], j=1:num_skaters} + sum{lineups[num_skaters+j,i]*goalies_lineup[j], j=1:num_goalies} <= num_overlap)
+    @addConstraint(m, constr[i=1:size(lineups)[2]], sum{lineups[j,i]*hitters_lineup[j], j=1:num_hitters} + sum{lineups[num_hitters+j,i]*pitchers_lineup[j], j=1:num_pitchers} <= num_overlap)
 
 
     # Objective
-    @setObjective(m, Max, sum{skaters[i,:Projection]*skaters_lineup[i], i=1:num_skaters} + sum{goalies[i,:Projection]*goalies_lineup[i], i=1:num_goalies})
+    @setObjective(m, Max, sum{hitters[i,:Projection]*hitters_lineup[i], i=1:num_hitters} + sum{pitchers[i,:Projection]*pitchers_lineup[i], i=1:num_pitchers})
 
 
     # Solve the integer programming problem
@@ -92,22 +92,22 @@ function one_lineup_no_stacking(skaters, goalies, lineups, num_overlap, num_skat
 
     # Puts the output of one lineup into a format that will be used later
     if status==:Optimal
-        skaters_lineup_copy = Array(Int64, 0)
-        for i=1:num_skaters
-            if getValue(skaters_lineup[i]) >= 0.9 && getValue(skaters_lineup[i]) <= 1.1
-                skaters_lineup_copy = vcat(skaters_lineup_copy, fill(1,1))
+        hitters_lineup_copy = Array(Int64, 0)
+        for i=1:num_hitters
+            if getValue(hitters_lineup[i]) >= 0.9 && getValue(hitters_lineup[i]) <= 1.1
+                hitters_lineup_copy = vcat(hitters_lineup_copy, fill(1,1))
             else
-                skaters_lineup_copy = vcat(skaters_lineup_copy, fill(0,1))
+                pitchers_lineup_copy = vcat(pitchers_lineup_copy, fill(0,1))
             end
         end
-        for i=1:num_goalies
-            if getValue(goalies_lineup[i]) >= 0.9 && getValue(goalies_lineup[i]) <= 1.1
-                skaters_lineup_copy = vcat(skaters_lineup_copy, fill(1,1))
+        for i=1:num_pitchers
+            if getValue(pitchers_lineup[i]) >= 0.9 && getValue(pitchers_lineup[i]) <= 1.1
+                hitters_lineup_copy = vcat(hitters_lineup_copy, fill(1,1))
             else
-                skaters_lineup_copy = vcat(skaters_lineup_copy, fill(0,1))
+                hitters_lineup_copy = vcat(hitters_lineup_copy, fill(0,1))
             end
         end
-        return(skaters_lineup_copy)
+        return(hitters_lineup_copy)
     end
 end
 

@@ -1,7 +1,7 @@
 Fantasy Hockey IP Code
 ======================
 
-This is the code for the paper [Winning Daily Fantasy Sports Hockey Contest Using Integer Programming](http://arxiv.org/pdf/1604.01455v1.pdf) by [David Hunter](http://orc.scripts.mit.edu/people/student.php?name=dshunter), [Juan Pablo Vielma](http://www.mit.edu/~jvielma/), and [Tauhid Zaman](http://zlisto.scripts.mit.edu/home/). Below are details on the required software, and instructions on how to run different variations of the code. 
+This is the code for the paper [Picking Winners Using Integer Programming](http://arxiv.org/abs/1604.01455) by [David Hunter](http://orc.scripts.mit.edu/people/student.php?name=dshunter), [Juan Pablo Vielma](http://www.mit.edu/~jvielma/), and [Tauhid Zaman](http://zlisto.scripts.mit.edu/home/). Below are details on the required software, and instructions on how to run different variations of the code. 
 
 ## Required Software 
 - [Julia](http://julialang.org/)
